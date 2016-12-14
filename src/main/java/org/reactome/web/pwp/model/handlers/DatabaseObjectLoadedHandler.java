@@ -7,5 +7,5 @@ import org.reactome.web.pwp.model.classes.DatabaseObject;
  */
 public interface DatabaseObjectLoadedHandler {
     void onDatabaseObjectLoaded(DatabaseObject databaseObject);
-    void onDatabaseObjectError(Throwable trThrowable);
+    void onDatabaseObjectError(Throwable throwable);
 }

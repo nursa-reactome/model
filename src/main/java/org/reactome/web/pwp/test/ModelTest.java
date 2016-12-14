@@ -20,49 +20,46 @@ import java.util.Map;
 public class ModelTest implements EntryPoint {
     @Override
     public void onModuleLoad() {
-        Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand() {
-            @Override
-            public void execute() {
-                System.out.println("");
+        Scheduler.get().scheduleDeferred(() -> {
+            System.out.println("");
 
-                //RAF/MAP -> 109869 (for v52)
-                DatabaseObjectFactory.get(109869L, new DatabaseObjectCreatedHandler() {
-                    @Override
-                    public void onDatabaseObjectLoaded(DatabaseObject databaseObject) {
-                        Event event = databaseObject.cast();
-                        RESTFulClient.getAncestors(event, new AncestorsCreatedHandler() {
-                            @Override
-                            public void onAncestorsLoaded(Ancestors ancestors) {
-                                System.out.println(ancestors);
-                            }
-
-                            @Override
-                            public void onAncestorsError(Throwable exception) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onDatabaseObjectError(Throwable exception) {
-
-                    }
-                });
-
-                DatabaseObjectFactory.get(Arrays.asList(1643685,5663202,1643713), new DatabaseObjectsCreatedHandler() {
-                    @Override
-                    public void onDatabaseObjectsLoaded(Map<String, DatabaseObject> databaseObjects) {
-                        for (DatabaseObject databaseObject : databaseObjects.values()) {
-                            System.out.println(databaseObject);
+            //RAF/MAP -> 109869 (for v52)
+            DatabaseObjectFactory.get(109869L, new DatabaseObjectCreatedHandler() {
+                @Override
+                public void onDatabaseObjectLoaded(DatabaseObject databaseObject) {
+                    Event event = databaseObject.cast();
+                    RESTFulClient.getAncestors(event, new AncestorsCreatedHandler() {
+                        @Override
+                        public void onAncestorsLoaded(Ancestors ancestors) {
+                            System.out.println(ancestors);
                         }
-                    }
 
-                    @Override
-                    public void onDatabaseObjectError(Throwable exception) {
+                        @Override
+                        public void onAncestorsError(Throwable exception) {
 
+                        }
+                    });
+                }
+
+                @Override
+                public void onDatabaseObjectError(Throwable exception) {
+
+                }
+            });
+
+            DatabaseObjectFactory.get(Arrays.asList(1643685,5663202,1643713), new DatabaseObjectsCreatedHandler() {
+                @Override
+                public void onDatabaseObjectsLoaded(Map<String, DatabaseObject> databaseObjects) {
+                    for (DatabaseObject databaseObject : databaseObjects.values()) {
+                        System.out.println(databaseObject);
                     }
-                });
-            }
+                }
+
+                @Override
+                public void onDatabaseObjectError(Throwable exception) {
+
+                }
+            });
         });
     }
 
