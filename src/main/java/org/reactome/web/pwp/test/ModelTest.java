@@ -23,8 +23,8 @@ public class ModelTest implements EntryPoint {
         Scheduler.get().scheduleDeferred(() -> {
             System.out.println("");
 
-            //RAF/MAP -> 109869 (for v52)
-            DatabaseObjectFactory.get(109869L, new DatabaseObjectCreatedHandler() {
+            //RAF/MAP -> R-HSA-5673001 (for v59)
+            DatabaseObjectFactory.get("R-HSA-5673001", new DatabaseObjectCreatedHandler() {
                 @Override
                 public void onDatabaseObjectLoaded(DatabaseObject databaseObject) {
                     Event event = databaseObject.cast();
