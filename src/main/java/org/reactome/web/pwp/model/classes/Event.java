@@ -31,11 +31,6 @@ public abstract class Event extends DatabaseObject {
     private List<Event> precedingEvent;
     private List<Event> followingEvent;
     private List<Publication> literatureReference;
-    // Regulation related attributes
-    private List<DatabaseObject> negativeRegulators; // PhysicalEntity, Event, CatalystActivity fit in here
-    // Regulators in PositiveRegulations but not Requirements.
-    // Note: Requirement is a subclass to PositiveRegulation.
-    private List<DatabaseObject> positiveRegulators; // PhysicalEntity, Event, CatalystActivity fit in here
     private List<DatabaseObject> requirements;
     private List<DatabaseIdentifier> crossReference;
     private List<Disease> disease;
@@ -47,6 +42,10 @@ public abstract class Event extends DatabaseObject {
     private List<String> name;
     private List<Event> orthologousEvent;
     private List<Compartment> compartment;
+
+    // Expose regulations directly so that more information can be displayed
+    private List<PositiveRegulation> positiveRegulations;
+    private List<NegativeRegulation> negativeRegulations;
 
     public Event(SchemaClass schemaClass) {
         super(schemaClass);
@@ -129,14 +128,14 @@ public abstract class Event extends DatabaseObject {
             this.literatureReference.add((Publication) DatabaseObjectFactory.create(object));
         }
 
-        this.negativeRegulators = new LinkedList<>();
-        for (JSONObject object : DatabaseObjectUtils.getObjectList(jsonObject, "negativeRegulators")) {
-            this.negativeRegulators.add(DatabaseObjectFactory.create(object));
+        this.negativeRegulations = new LinkedList<>();
+        for (JSONObject object : DatabaseObjectUtils.getObjectList(jsonObject, "negativeRegulations")) {
+            this.negativeRegulations.add((NegativeRegulation) DatabaseObjectFactory.create(object));
         }
 
-        this.positiveRegulators = new LinkedList<>();
-        for (JSONObject object : DatabaseObjectUtils.getObjectList(jsonObject, "positiveRegulators")) {
-            this.positiveRegulators.add(DatabaseObjectFactory.create(object));
+        this.positiveRegulations = new LinkedList<>();
+        for (JSONObject object : DatabaseObjectUtils.getObjectList(jsonObject, "positiveRegulations")) {
+            this.positiveRegulations.add((PositiveRegulation) DatabaseObjectFactory.create(object));
         }
 
         this.requirements = new LinkedList<>();
@@ -270,14 +269,6 @@ public abstract class Event extends DatabaseObject {
         return literatureReference;
     }
 
-    public List<DatabaseObject> getNegativeRegulators() {
-        return negativeRegulators;
-    }
-
-    public List<DatabaseObject> getPositiveRegulators() {
-        return positiveRegulators;
-    }
-
     public List<DatabaseObject> getRequirements() {
         return requirements;
     }
@@ -312,5 +303,13 @@ public abstract class Event extends DatabaseObject {
 
     public List<Compartment> getCompartment() {
         return compartment;
+    }
+
+    public List<PositiveRegulation> getPositiveRegulations() {
+        return positiveRegulations;
+    }
+
+    public List<NegativeRegulation> getNegativeRegulations() {
+        return negativeRegulations;
     }
 }

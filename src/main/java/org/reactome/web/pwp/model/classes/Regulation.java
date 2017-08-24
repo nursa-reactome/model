@@ -30,6 +30,7 @@ public class Regulation extends DatabaseObject {
     private List<Summation> summation;
     // New attribute in December, 2013
     private List<Pathway> containedInPathway;
+    private GO_BiologicalProcess goBiologicalProcess;
 
     public Regulation() {
         this(SchemaClass.REGULATION);
@@ -102,6 +103,10 @@ public class Regulation extends DatabaseObject {
         for (JSONObject object : DatabaseObjectUtils.getObjectList(jsonObject, "containedInPathway")) {
             this.containedInPathway.add((Pathway) DatabaseObjectFactory.create(object));
         }
+
+        if (jsonObject.containsKey("goBiologicalProcess")) {
+            this.goBiologicalProcess = DatabaseObjectUtils.getDatabaseObject(jsonObject, "goBiologicalProcess");
+        }
     }
 
     public InstanceEdit getAuthored() {
@@ -154,6 +159,10 @@ public class Regulation extends DatabaseObject {
 
     public List<Pathway> getContainedInPathway() {
         return containedInPathway;
+    }
+
+    public GO_BiologicalProcess getGoBiologicalProcess() {
+        return goBiologicalProcess;
     }
 
     @Override

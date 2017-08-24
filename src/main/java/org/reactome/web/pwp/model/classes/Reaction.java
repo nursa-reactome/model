@@ -20,7 +20,6 @@ public class Reaction extends ReactionLikeEvent {
     private String totalProt;
     private String maxHomologues;
     private String inferredProt;
-    private List<Regulation> regulation;
 
     public Reaction() {
         super(SchemaClass.REACTION);
@@ -45,37 +44,7 @@ public class Reaction extends ReactionLikeEvent {
         if (jsonObject.containsKey("inferredProt")) {
             this.inferredProt = DatabaseObjectUtils.getStringValue(jsonObject, "inferredProt");
         }
-
-        this.regulation = new LinkedList<>();
-        for (JSONObject object : DatabaseObjectUtils.getObjectList(jsonObject, "regulation")) {
-            this.regulation.add((Regulation) DatabaseObjectFactory.create(object));
-        }
     }
-
-    /******************************
-     * NEXT TWO METHODS NOT AUTO-GENERATED
-     ******************************/
-    public List<PositiveRegulation> getPositiveRegulation() {
-        List<PositiveRegulation> pr = new LinkedList<>();
-        for (Regulation r : regulation) {
-            if (r instanceof PositiveRegulation) {
-                pr.add((PositiveRegulation) r);
-            }
-        }
-        return pr;
-    }
-
-    public List<NegativeRegulation> getNegativeRegulation() {
-        List<NegativeRegulation> nr = new LinkedList<>();
-        for (Regulation r : regulation) {
-            if (r instanceof NegativeRegulation) {
-                nr.add((NegativeRegulation) r);
-            }
-        }
-        return nr;
-    }
-
-    /*************************************************************************************************/
 
     @Override
     public ImageResource getImageResource() {
@@ -98,7 +67,4 @@ public class Reaction extends ReactionLikeEvent {
         return inferredProt;
     }
 
-    public List<Regulation> getRegulation() {
-        return regulation;
-    }
 }
