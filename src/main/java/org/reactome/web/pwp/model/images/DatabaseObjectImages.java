@@ -17,6 +17,9 @@ public interface DatabaseObjectImages extends ClientBundle {
     @Source("CandidateSet.png")
     ImageResource candidateSet();
 
+    @Source("ChemicalDrug.png")
+    ImageResource chemicalDrug();
+
     @Source("Complex.png")
     ImageResource complex();
 
