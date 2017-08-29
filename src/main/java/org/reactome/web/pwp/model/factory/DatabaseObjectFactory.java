@@ -173,6 +173,9 @@ public abstract class DatabaseObjectFactory {
             case CELL_TYPE:
                 rtn = new CellType();
                 break;
+            case CHEMICAL_DRUG:
+                rtn = new ChemicalDrug();
+                break;
             case COMPARTMENT:
                 rtn = new Compartment();
                 break;
@@ -297,6 +300,9 @@ public abstract class DatabaseObjectFactory {
             case POSITIVE_REGULATION:
                 rtn = new PositiveRegulation();
                 break;
+            case PROTEIN_DRUG:
+                rtn = new ProteinDrug();
+                break;
             case PSI_MOD:
                 rtn = new PsiMod();
                 break;
@@ -327,6 +333,9 @@ public abstract class DatabaseObjectFactory {
             case REFERENCE_RNA_SEQUENCE:
                 rtn = new ReferenceRNASequence();
                 break;
+            case REFERENCE_THERAPEUTIC:
+                rtn = new ReferenceTherapeutic();
+                break;
             //case REFERENCE_SEQUENCE:  //NOT USED HERE
             case REGULATION:
                 rtn = new Regulation();
@@ -339,6 +348,9 @@ public abstract class DatabaseObjectFactory {
                 break;
             case REQUIREMENT:
                 rtn = new Requirement();
+                break;
+            case RNA_DRUG:
+                rtn = new RNADrug();
                 break;
             case SEQUENCE_DOMAIN:
                 rtn = new SequenceDomain();

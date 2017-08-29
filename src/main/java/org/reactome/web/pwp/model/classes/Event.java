@@ -167,9 +167,7 @@ public abstract class Event extends DatabaseObject {
         }
 
         this.name  = new LinkedList<>();
-        for (String name : DatabaseObjectUtils.getStringList(jsonObject, "name")) {
-            this.name.add(name);
-        }
+        this.name.addAll(DatabaseObjectUtils.getStringList(jsonObject, "name"));
 
         this.orthologousEvent = new LinkedList<>();
         for (JSONObject object : DatabaseObjectUtils.getObjectList(jsonObject, "orthologousEvent")) {
